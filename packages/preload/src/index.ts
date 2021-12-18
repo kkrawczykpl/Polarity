@@ -1,4 +1,4 @@
-import {contextBridge} from 'electron';
+import {contextBridge, ipcRenderer} from 'electron';
 
 import type {BinaryLike} from 'crypto';
 import {createHash} from 'crypto';
@@ -37,4 +37,18 @@ contextBridge.exposeInMainWorld('nodeCrypto', {
     hash.update(data);
     return hash.digest('hex');
   },
+});
+
+
+/**
+ * Expose "darkMode" object used to switch dark/light theme.
+ * Default theme is "System theme" that is
+ * determined by the operating system theme.
+ * @example
+ * console.log( window.darkMode )
+ */
+
+contextBridge.exposeInMainWorld('darkMode', {
+  toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
+  system: () => ipcRenderer.invoke('dark-mode:system'),
 });
