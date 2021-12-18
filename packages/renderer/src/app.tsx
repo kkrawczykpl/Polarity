@@ -5,8 +5,8 @@ import { Sidebar } from './components/sidebar/sidebar';
 export const App: React.FC = () => {
     const [count, setCount] = useState(0);
 
-    const toggleDarkMode = async () => await window.darkMode?.toggle();
-    const resetDarkMode = async () => await window.darkMode?.system();
+    const toggleDarkMode = async () => await window.darkMode.toggle();
+    const resetDarkMode = async () => await window.darkMode.system();
 
     return (
         <div className="app">
