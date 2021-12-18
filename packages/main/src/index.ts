@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
+import { TrayGenerator } from './components/Tray/TrayGenerator';
 import { join } from 'path';
 import { URL } from 'url';
 import './security-restrictions';
@@ -50,6 +51,11 @@ const createWindow = async () => {
    */
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
+
+    if(mainWindow) {
+      const tray = new TrayGenerator(mainWindow);
+      tray.createTray();
+    }
 
     if (isDevelopment) {
       mainWindow?.webContents.openDevTools();
